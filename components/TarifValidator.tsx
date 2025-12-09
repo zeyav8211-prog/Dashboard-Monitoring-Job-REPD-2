@@ -109,9 +109,9 @@ export const TarifValidator: React.FC<TarifValidatorProps> = ({ category }) => {
     
     const data = rowsToDownload || result.fullReport;
     
-    // Explicit types to fix TS7034/TS7005 errors
-    let csvHeader: string = "";
-    let csvRows: string[] = [];
+    // Explicit types to fix TS7034/TS7005
+    let header: string = '';
+    let rows: string[] = [];
 
     const esc = (val: any) => {
         const str = String(val === undefined || val === null ? '' : val);
@@ -122,26 +122,26 @@ export const TarifValidator: React.FC<TarifValidatorProps> = ({ category }) => {
     };
 
     if (category === 'TARIF') {
-        csvHeader = [
+        header = [
             'ORIGIN', 'DEST', 'SYS_CODE', 
             'Service REG', 'Tarif REG', 'sla form REG', 'sla thru REG', 
             'SERVICE', 'TARIF', 'SLA_FORM', 'SLA_THRU', 'Keterangan'
         ].join(',');
 
-        csvRows = data.map(row => [
+        rows = data.map(row => [
             esc(row.origin), esc(row.dest), esc(row.sysCode),
             esc(row.serviceMaster), esc(row.tarifMaster), esc(row.slaFormMaster), esc(row.slaThruMaster),
             esc(row.serviceIT), esc(row.tarifIT), esc(row.slaFormIT), esc(row.slaThruIT),
             esc(row.keterangan)
         ].join(','));
     } else {
-        csvHeader = [
+        header = [
             'ORIGIN', 'DESTINASI', 'SERVICE', 'ACUAN SERVICE',
             'BP Master', 'BP Next Master', 'BT Master', 'BD Master', 'BD Next Master', 
             'BP IT', 'BP Next IT', 'BT IT', 'BD IT', 'BD Next IT', 'Keterangan'
         ].join(',');
 
-        csvRows = data.map(row => [
+        rows = data.map(row => [
             esc(row.origin), esc(row.dest), esc(row.serviceIT), esc(row.serviceMaster), 
             esc(row.bpMaster), esc(row.bpNextMaster), esc(row.btMaster), esc(row.bdMaster), esc(row.bdNextMaster),
             esc(row.bpIT), esc(row.bpNextIT), esc(row.btIT), esc(row.bdIT), esc(row.bdNextIT),
@@ -149,7 +149,7 @@ export const TarifValidator: React.FC<TarifValidatorProps> = ({ category }) => {
         ].join(','));
     }
 
-    const content = [csvHeader, ...csvRows].join('\n');
+    const content = [header, ...rows].join('\n');
     const blob = new Blob([content], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -540,7 +540,7 @@ export const TarifValidator: React.FC<TarifValidatorProps> = ({ category }) => {
 
   const getDisplayedRows = useMemo(() => {
       if (!result) return [];
-      let rows = [];
+      let rows: FullValidationRow[] = [];
       
       if (result.totalRows > 0 && result.fullReport.length === 0) {
           return [];
