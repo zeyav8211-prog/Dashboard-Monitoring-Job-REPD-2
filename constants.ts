@@ -2,6 +2,10 @@
 import { MenuStructure, User } from './types';
 
 export const MENU_STRUCTURE: MenuStructure = {
+  "Report Surat": {
+    name: "Report Surat",
+    submenus: ["Summary", "Email Masuk", "Disposisi", "Internal Memo"]
+  },
   "Penyesuaian": {
     name: "Penyesuaian",
     submenus: ["Harga Jual", "Routing", "Costing"]
@@ -21,6 +25,10 @@ export const MENU_STRUCTURE: MenuStructure = {
   "Validasi": {
     name: "Validasi",
     submenus: ["Tarif Otomatis", "Biaya Validasi"]
+  },
+  "Kompetitor": {
+    name: "Kompetitor",
+    submenus: ["Summary", "Form Kompetitor"]
   }
 };
 
@@ -29,10 +37,10 @@ export const JNE_BLUE = "#002F6C";
 
 export const LOGO_URL = "https://lh3.googleusercontent.com/d/19L5QBkcuSDrfWX_uqZGVUkpAlriZijp1";
 
-// Google Apps Script Configuration (Backup/Alternative)
-export const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0EwNykAaEfujJ3OK7glHks5OtNpZfEV6XcsDKtv1G5qcLdQglmUFzd4yiaZsRkBkg/exec";
+// Google Apps Script Configuration (Primary Storage)
+export const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3LeGHqD0GYlHHty5fDmVVaACazAu8WhTz_FyoiYadNgCr3E5e4Vbd7pCQEympdofD/exec";
 
-// JSONBin.io Configuration (Primary)
+// JSONBin.io Configuration (Backup)
 export const JSONBIN_BIN_ID = "692843aa43b1c97be9c875fd";
 export const JSONBIN_API_KEY = "$2a$10$LGur5G.UJ.Zqbg.83y6MrO/GqNujJc/zDfMiAx6keBe5gGyUhbSim";
 export const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;

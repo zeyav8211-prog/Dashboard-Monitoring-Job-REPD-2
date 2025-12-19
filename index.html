@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,6 +18,20 @@
       .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
+      }
+      @keyframes blink-red {
+        0%, 100% { background-color: rgba(239, 68, 68, 1); color: white; }
+        50% { background-color: rgba(254, 226, 226, 1); color: #b91c1c; }
+      }
+      @keyframes blink-orange {
+        0%, 100% { background-color: rgba(245, 158, 11, 1); color: white; }
+        50% { background-color: rgba(254, 243, 199, 1); color: #92400e; }
+      }
+      .animate-blink-red {
+        animation: blink-red 1s infinite;
+      }
+      .animate-blink-orange {
+        animation: blink-orange 1.5s infinite;
       }
     </style>
 <script type="importmap">

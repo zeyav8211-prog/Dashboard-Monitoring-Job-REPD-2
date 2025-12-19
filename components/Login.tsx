@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { LOGO_URL } from '../constants';
 import { User } from '../types';
-import { LogIn, Lock, User as UserIcon, Send, ArrowLeft, Mail } from 'lucide-react';
+import { LogIn, Lock, User as UserIcon, RefreshCw, ArrowLeft } from 'lucide-react';
 
 interface LoginProps {
   onLogin: (user: User) => void;
@@ -47,14 +46,12 @@ export const Login: React.FC<LoginProps> = ({ onLogin, users, onResetPassword })
     try {
         const success = await onResetPassword(email);
         if (success) {
-            // Simulasi pesan email terkirim. 
-            // Note: Karena ini demo tanpa SMTP server, password asli di backend tetap direset ke 000000 agar user tidak terkunci.
-            setSuccessMsg(`Link untuk reset password telah dikirim ke ${email}. Silakan periksa kotak masuk atau folder spam email Anda.`);
+            setSuccessMsg('Password berhasil direset menjadi "000000". Silakan login.');
             setTimeout(() => {
                 setIsResetMode(false);
                 setSuccessMsg('');
                 setPassword('');
-            }, 4000);
+            }, 3000);
         } else {
             setError('Email tidak ditemukan dalam sistem.');
         }
@@ -75,12 +72,10 @@ export const Login: React.FC<LoginProps> = ({ onLogin, users, onResetPassword })
             className="h-16 object-contain mb-4"
           />
           <h2 className="text-2xl font-bold text-[#002F6C]">
-            {isResetMode ? 'Lupa Password?' : 'Job Dashboard'}
+            {isResetMode ? 'Reset Password' : 'Job Dashboard'}
           </h2>
-          <p className="text-gray-500 text-sm text-center">
-            {isResetMode 
-                ? 'Masukkan alamat email yang terdaftar. Kami akan mengirimkan link untuk mereset password Anda.' 
-                : 'Silakan login untuk melanjutkan'}
+          <p className="text-gray-500 text-sm">
+            {isResetMode ? 'Masukkan email untuk mereset password' : 'Silakan login untuk melanjutkan'}
           </p>
         </div>
 
@@ -92,7 +87,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin, users, onResetPassword })
                     </label>
                     <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Mail className="h-5 w-5 text-gray-400" />
+                        <UserIcon className="h-5 w-5 text-gray-400" />
                     </div>
                     <input
                         type="email"
@@ -113,12 +108,8 @@ export const Login: React.FC<LoginProps> = ({ onLogin, users, onResetPassword })
                 )}
 
                 {successMsg && (
-                    <div className="bg-green-50 text-green-700 text-sm p-3 rounded-lg flex flex-col gap-1">
-                        <div className="flex items-center font-bold">
-                            <Send className="w-4 h-4 mr-2"/> Link Terkirim!
-                        </div>
-                        <p>{successMsg}</p>
-                        <p className="text-xs text-green-600 mt-1 italic opacity-80">(Info Sistem: Password sementara: 000000)</p>
+                    <div className="bg-green-50 text-green-600 text-sm p-3 rounded-lg flex items-center">
+                        <span className="font-medium mr-1">Sukses:</span> {successMsg}
                     </div>
                 )}
 
@@ -128,11 +119,11 @@ export const Login: React.FC<LoginProps> = ({ onLogin, users, onResetPassword })
                     className="w-full flex items-center justify-center py-3 px-4 bg-[#EE2E24] hover:bg-red-700 text-white font-bold rounded-lg transition-colors shadow-lg shadow-red-200 disabled:opacity-50"
                 >
                     {resetLoading ? (
-                        <>Mengirim...</>
+                        <>Processing...</>
                     ) : (
                         <>
-                            <Send className="w-5 h-5 mr-2" />
-                            Kirim Link Reset Password
+                            <RefreshCw className="w-5 h-5 mr-2" />
+                            Reset ke Password Awal
                         </>
                     )}
                 </button>
@@ -179,7 +170,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin, users, onResetPassword })
                     type="password"
                     id="password"
                     required
-                    placeholder="Password Anda"
+                    placeholder="Default: 000000"
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EE2E24] focus:border-[#EE2E24] outline-none transition-all"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

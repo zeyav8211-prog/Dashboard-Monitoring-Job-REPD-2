@@ -1,5 +1,5 @@
 
-export type Status = 'Pending' | 'In Progress' | 'Completed' | 'Overdue';
+export type Status = 'Pending' | 'In Progress' | 'Completed' | 'Overdue' | 'Drop' | 'On Proses' | 'DONE' | 'Hold' | 'Cancel';
 
 export interface Job {
   id: string;
@@ -14,6 +14,69 @@ export interface Job {
   keterangan?: string;
   notes?: string;
   createdBy?: string;
+  
+  // Field untuk validasi sesuai gambar di menu Penyesuaian
+  konfirmasiCabang?: boolean;
+  disposisi?: boolean;
+  approve?: boolean;
+
+  customData?: {
+    picUser?: string;
+    jenisPengajuan?: string;
+    picRepd?: string;
+    nomorSurat?: string;
+    klasifikasi?: string;
+    tanggalUpdate?: string;
+    approvals?: {
+        headDept?: boolean;
+        headDiv?: boolean;
+        regional?: boolean;
+        vp?: boolean;
+        bod?: boolean;
+    };
+    documents?: {
+        softCopy?: boolean;
+        hardCopy?: boolean;
+        lampiran?: boolean;
+        linkAktifasi?: boolean;
+        linkUrl?: string;
+    };
+    socialization?: {
+        cabang?: boolean;
+        it?: boolean;
+    };
+    // Field baru untuk Produksi Master Data
+    masterDataSources?: {
+        server?: boolean;
+        it?: boolean;
+        others?: boolean;
+        othersText?: string;
+    };
+  };
+}
+
+export interface CompetitorRow {
+    id: string;
+    regional: string;
+    origin: string;
+    destination: string;
+    weight: number;
+    jneRegPrice: number;
+    jneRegSla: string;
+    jntEzPrice: number;
+    jntEzSla: string;
+    lionRegPrice: number;
+    lionRegSla: string;
+    sicepatRegPrice: number;
+    sicepatRegSla: string;
+    jneJtrPrice: number;
+    jneJtrSla: string;
+    jntCargoPrice: number;
+    jntCargoSla: string;
+    lionBigPrice: number;
+    lionBigSla: string;
+    wahanaCargoPrice: number;
+    wahanaCargoSla: string;
 }
 
 export interface MenuItem {
@@ -64,8 +127,6 @@ export interface FullValidationRow {
     origin: string;
     dest: string;
     sysCode: string;
-    
-    // Tarif Fields
     serviceMaster: string;
     tarifMaster: number;
     slaFormMaster: number;
@@ -74,20 +135,16 @@ export interface FullValidationRow {
     tarifIT: number;
     slaFormIT: number;
     slaThruIT: number;
-
-    // Biaya Fields
     bpMaster?: number;
     bpNextMaster?: number;
     btMaster?: number;
     bdMaster?: number;
     bdNextMaster?: number;
-    
     bpIT?: number;
     bpNextIT?: number;
     btIT?: number;
     bdIT?: number;
     bdNextIT?: number;
-
     keterangan: string;
 }
 
